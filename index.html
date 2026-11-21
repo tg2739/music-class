@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>초등 음악 수업 웹앱</title>
+<meta name="description" content="2022 개정 음악과 교육과정에 맞춘 초등 음악 수업용 웹앱 두 가지 — 소리 요리사(서양음악), 덩덕쿵 공방(국악).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#F4F2EC; --surface:#FFFFFF; --surface-2:#E9E5DB; --ink:#1C1A16; --ink-2:#605A4E;
+  --line:#CFC8B9; --a1:#B8452C; --a2:#1D6B87;
+  --shadow:0 2px 0 rgba(28,26,22,.12), 0 14px 30px -18px rgba(28,26,22,.5);
+  --f-d:"Gowun Batang","Noto Sans KR",serif; --f-b:"Noto Sans KR",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#141310; --surface:#1E1C17; --surface-2:#2A2720; --ink:#EDE9DF; --ink-2:#A39B8A;
+    --line:#423D33; --a1:#E07757; --a2:#4CA3C1;
+    --shadow:0 2px 0 rgba(0,0,0,.5), 0 14px 30px -18px rgba(0,0,0,.95); color-scheme:dark;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-b);line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px 64px}
+h1{font-family:var(--f-d);font-size:clamp(28px,5vw,40px);margin:0 0 6px;line-height:1.2}
+.lede{color:var(--ink-2);font-size:15px;margin:0 0 32px;max-width:60ch}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+  padding:22px;margin-bottom:20px;display:grid;grid-template-columns:1fr 148px;gap:22px;align-items:start}
+@media (max-width:620px){.card{grid-template-columns:1fr}}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;padding:3px 10px;border-radius:999px;
+  background:var(--surface-2);color:var(--ink-2);margin-bottom:9px}
+.card h2{font-family:var(--f-d);font-size:25px;margin:0 0 6px;line-height:1.25}
+.card h2 a{color:inherit;text-decoration:none;border-bottom:3px solid var(--a1)}
+.card h2 a:hover{color:var(--a1)}
+.card p{margin:0 0 12px;font-size:14.5px}
+.std{font-size:13px;color:var(--ink-2);border-left:3px solid var(--line);padding-left:11px;margin:0 0 14px}
+.urlrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+code.url{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;background:var(--surface-2);
+  border:1px solid var(--line);border-radius:8px;padding:7px 11px;word-break:break-all}
+button{font:inherit;cursor:pointer;border:2px solid var(--line);background:var(--surface-2);color:var(--ink);
+  border-radius:9px;padding:7px 13px;font-size:13.5px;font-weight:700}
+button:hover{filter:brightness(.96)}
+.open{background:var(--a1);border-color:var(--a1);color:#fff;text-decoration:none;display:inline-block;
+  padding:9px 18px;border-radius:9px;font-weight:700;font-size:14.5px}
+.qr{background:#fff;border:2px solid var(--line);border-radius:12px;padding:9px;display:grid;place-items:center;
+  width:148px;height:148px;justify-self:end}
+@media (max-width:620px){.qr{justify-self:start}}
+.qr img,.qr canvas{display:block;max-width:100%;height:auto}
+.qr .fallback{font-size:12px;color:#666;text-align:center;padding:8px}
+.note{background:var(--surface-2);border:2px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:28px}
+.note h3{font-family:var(--f-d);font-size:19px;margin:0 0 10px}
+.note ul{margin:0;padding-left:20px;font-size:14px}
+.note li{margin-bottom:6px}
+.foot{margin-top:28px;font-size:12.5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>초등 음악 수업 웹앱</h1>
+  <p class="lede">2022 개정 음악과 교육과정에 맞춘 수업 도구 두 가지입니다. 회원가입도 로그인도 없이 주소만으로 바로 쓸 수 있고, 학생 이름이나 개인 정보를 적지 않습니다.</p>
+
+  <section class="card">
+    <div>
+      <span class="tag">서양음악 · 4학년</span>
+      <h2><a href="sori/">소리 요리사</a></h2>
+      <p>같은 가락에 빠르기·셈여림·이음과 끊음·악기를 바꿔 넣고, <b>기본 맛과 내 요리를 번갈아 들으며</b> 무엇이 달라졌는지 찾습니다. 양념을 바꾸면 악보의 음악 기호도 함께 다시 그려집니다.</p>
+      <p class="std">[4음02-01] 음악을 듣고 기초적인 음악 요소를 탐색하며 반응한다.<br>[4음03-02] 악곡의 일부를 바꾸어 표현하고 간단한 악보로 나타낸다.</p>
+      <div class="urlrow">
+        <a class="open" href="sori/">열기</a>
+        <code class="url" id="u1">…</code>
+        <button data-copy="u1">주소 복사</button>
+      </div>
+    </div>
+    <div class="qr" id="q1"><span class="fallback">QR을 만드는 중…</span></div>
+  </section>
+
+  <section class="card">
+    <div>
+      <span class="tag">국악 · 5학년</span>
+      <h2><a href="jangdan/">덩덕쿵 공방</a></h2>
+      <p>정간보에 <b>장단꼴</b>을 얹어 굿거리·자진모리·세마치 장단을 짓고, 꽹과리·징·북을 켜서 <b>사물이 어울리는 소리</b>를 직접 만들어 들어 봅니다.</p>
+      <p class="std">[6음03-02] 기초적인 기보를 활용하여 간단한 조건에 따라 악곡의 일부를 바꾼다.<br>[6음01-03] 소리의 어울림을 생각하며 다양한 방법으로 함께 표현한다.</p>
+      <div class="urlrow">
+        <a class="open" href="jangdan/">열기</a>
+        <code class="url" id="u2">…</code>
+        <button data-copy="u2">주소 복사</button>
+      </div>
+    </div>
+    <div class="qr" id="q2"><span class="fallback">QR을 만드는 중…</span></div>
+  </section>
+
+  <div class="note">
+    <h3>수업에서 쓰실 때</h3>
+    <ul>
+      <li>두 앱 모두 위쪽 탭으로 <b>학생 화면 ↔ 선생님 화면</b>을 오갑니다. 선생님 화면에는 듣고 맞히는 퀴즈와, 모둠 결과를 모아 듣는 기능이 있습니다.</li>
+      <li>소리는 브라우저가 그 자리에서 만들어 냅니다. <b>브라우저 정책상 화면을 한 번 누른 뒤</b>에 소리가 납니다.</li>
+      <li>모둠 결과는 <b>네 글자 코드</b>로만 주고받습니다. 서버로 보내는 것이 없으므로 수집되는 개인 정보도 없습니다.</li>
+      <li>글꼴만 구글 폰트에서 받아옵니다. 학교 망에서 막혀 있어도 기기에 있는 글꼴로 바뀌어 <b>기능은 그대로</b> 작동합니다.</li>
+      <li>HTML 파일을 내려받아 두면 인터넷 없이도 열립니다.</li>
+    </ul>
+  </div>
+
+  <p class="foot">소리는 모두 브라우저에서 합성했고, 쓰인 가락(작은 별·환희의 송가·메리의 어린 양)은 저작권이 소멸한 곡입니다. 국악 장단은 교과서에서 널리 쓰이는 꼴을 따랐으며, 지역과 악곡에 따라 다른 꼴도 있습니다.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+  var items=[["u1","q1","sori/"],["u2","q2","jangdan/"]];
+  items.forEach(function(it){
+    var url=new URL(it[2],location.href).href;
+    document.getElementById(it[0]).textContent=url;
+    var box=document.getElementById(it[1]);
+    if(window.QRCode){
+      box.innerHTML="";
+      try{ new QRCode(box,{text:url,width:126,height:126,correctLevel:QRCode.CorrectLevel.M}); }
+      catch(e){ box.innerHTML='<span class="fallback">아래 주소를 직접 입력하세요</span>'; }
+    }else{
+      box.innerHTML='<span class="fallback">아래 주소를 직접 입력하세요</span>';
+    }
+  });
+  document.addEventListener("click",function(e){
+    var b=e.target.closest("[data-copy]"); if(!b) return;
+    var t=document.getElementById(b.dataset.copy).textContent, old=b.textContent;
+    function done(msg){ b.textContent=msg; setTimeout(function(){b.textContent=old;},1600); }
+    if(navigator.clipboard&&navigator.clipboard.writeText)
+      navigator.clipboard.writeText(t).then(function(){done("복사했습니다");},function(){done("직접 선택해 주세요");});
+    else done("직접 선택해 주세요");
+  });
+})();
+</script>
+</body>
+</html>
