@@ -94,6 +94,27 @@ button:focus-visible{outline:3px solid var(--cheong);outline-offset:2px}
 .opt[aria-pressed="true"]{background:var(--cheong);border-color:#124e63;color:#FAF6EC}
 .opt[aria-pressed="true"] .sm{color:rgba(250,246,236,.9)}
 .opt[aria-pressed="true"] .big::before{content:"● ";font-size:9px;vertical-align:middle}
+.opt{min-height:74px}
+.opt .big-ic{width:26px;height:26px;display:block;margin:0 auto 3px;stroke-width:1.7}
+.opt[aria-pressed="true"] .big-ic{stroke:#FAF6EC}
+/* 구음 창 — 칠 때 지금 소리를 크게 보여 준다 */
+.gueumbar{display:flex;align-items:center;gap:12px;background:var(--surface-2);border:2px solid var(--line);
+  border-radius:12px;padding:8px 14px;margin-bottom:10px;min-height:56px}
+.gueumbar .lb{font-size:12px;color:var(--ink-2);font-weight:700;flex:none}
+.gueumbar .gu{font-family:var(--f-gueum);font-weight:700;font-size:30px;line-height:1;color:var(--jeok);
+  min-width:3.4em;letter-spacing:.04em}
+.gueumbar .gu.idle{color:var(--line);font-size:22px}
+.gueumbar .beat{margin-left:auto;font-size:12.5px;color:var(--ink-2)}
+.gueumbar .beat b{font-family:var(--f-title);color:var(--ink);font-size:15px}
+/* 조건 확인 띠 */
+.conds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:11px}
+.cond{display:flex;align-items:center;gap:6px;border:2px solid var(--line);border-radius:999px;
+  padding:6px 12px;font-size:13px;background:var(--surface-2);color:var(--ink-2)}
+.cond .ic{width:17px;height:17px}
+.cond.ok{border-color:var(--nok);color:var(--ink);background:color-mix(in srgb,var(--nok) 14%,var(--surface))}
+.cond.ok .ic{color:var(--nok)}
+.pick{font-size:13px;color:var(--ink-2);margin:0 0 9px}
+.pick b{color:var(--jeok);font-family:var(--f-title);font-size:15px}
 
 /* ---------- 정간보 ---------- */
 .scorewrap{overflow-x:auto;padding:2px 0 0}
@@ -225,6 +246,13 @@ dialog::backdrop{background:rgba(16,13,8,.62)}
   <symbol id="i-student" viewBox="0 0 24 24"><path d="M12 3.6 2.8 8.2 12 12.8l9.2-4.6L12 3.6Z"/><path d="M6.4 10.4v4.8c0 1.8 2.5 3.2 5.6 3.2s5.6-1.4 5.6-3.2v-4.8"/></symbol>
   <symbol id="i-teacher" viewBox="0 0 24 24"><rect x="2.8" y="3.6" width="18.4" height="12.4" rx="2"/><path d="M8.4 20.4h7.2"/><path d="M12 16v4.4"/><path d="M6.6 7.4h7"/><path d="M6.6 11.2h4.4"/></symbol>
   <symbol id="i-grid" viewBox="0 0 24 24"><rect x="2.6" y="6.8" width="18.8" height="10.4" rx="2"/><path d="M8.9 6.8v10.4"/><path d="M15.1 6.8v10.4"/></symbol>
+  <!-- 한배: 메트로놈. 추가 위에 있을수록 느리다 -->
+  <symbol id="i-metro-s" viewBox="0 0 24 24"><path d="M8.6 3.4h6.8l3.4 17.2H5.2z"/><path d="M12 5.8v12.2"/><rect x="9.6" y="6.4" width="4.8" height="2.4" rx=".7"/></symbol>
+  <symbol id="i-metro-m" viewBox="0 0 24 24"><path d="M8.6 3.4h6.8l3.4 17.2H5.2z"/><path d="M12 5.8v12.2"/><rect x="9.6" y="10.6" width="4.8" height="2.4" rx=".7"/></symbol>
+  <symbol id="i-metro-f" viewBox="0 0 24 24"><path d="M8.6 3.4h6.8l3.4 17.2H5.2z"/><path d="M12 5.8v12.2"/><rect x="9.6" y="14.8" width="4.8" height="2.4" rx=".7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.2 2.8 2.8 5.2-5.6"/></symbol>
+  <symbol id="i-open" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M9.4 11.6V5.4a1.7 1.7 0 0 1 3.4 0v5.2"/><path d="M12.8 10.8V4.6a1.7 1.7 0 0 1 3.4 0v6.8"/><path d="M16.2 11.6V7.2a1.7 1.7 0 0 1 3.4 0v7.4c0 3.6-2.6 6-6 6h-1.8c-2 0-3.2-.8-4.2-2.4L4.9 13c-.6-1 0-2.2 1.2-2.4 1-.2 1.9.2 2.4 1l.9 1.4"/></symbol>
 </defs></svg>
 
 <div class="wrap">
@@ -264,6 +292,11 @@ dialog::backdrop{background:rgba(16,13,8,.62)}
       <div class="panel-hd"><h2><svg class="ic"><use href="#i-grid"/></svg>정간보</h2>
         <p class="hint" id="jdDesc"></p></div>
       <div class="body">
+        <div class="gueumbar">
+          <span class="lb">지금<br>소리</span>
+          <span class="gu idle" id="gueum">덩 · 덕 · 쿵</span>
+          <span class="beat" id="beatnow">칠 때 여기에 구음이 떠요. 보면서 입으로 따라 해 보세요.</span>
+        </div>
         <div class="scorewrap"><div class="score" id="score"></div></div>
         <div class="rowbar" style="margin-top:12px">
           <button class="btn btn-main" id="play"><svg class="ic solid"><use href="#i-play"/></svg>내 장단 치기</button>
@@ -280,6 +313,8 @@ dialog::backdrop{background:rgba(16,13,8,.62)}
       <div class="panel-hd"><h2>장단꼴 서랍</h2>
         <p class="hint">먼저 정간을 하나 누르고, 아래에서 장단꼴을 고릅니다</p></div>
       <div class="body">
+        <div class="conds" id="conds"></div>
+        <p class="pick" id="pick"></p>
         <div class="cards" id="cards"></div>
         <div class="rowbar" style="margin-top:12px">
           <button class="btn btn-ghost" id="fillBasic">기본 장단 넣기</button>
@@ -404,7 +439,9 @@ dialog::backdrop{background:rgba(16,13,8,.62)}
      basic:[0,3,5],
      kk:[1,0,0, 1,0,1, 1,0,0], ji:[1,0,0, 0,0,0, 0,0,0], bu:[1,0,0, 0,0,0, 1,0,0]}
   ];
-  var PACE=[{nm:"느린 한배",sm:"느릿하게",f:.76},{nm:"보통 한배",sm:"기본",f:1},{nm:"자진 한배",sm:"빠르게",f:1.3}];
+  var PACE=[{nm:"느린 한배",sm:"느릿하게",f:.76,ic:"i-metro-s"},
+            {nm:"보통 한배",sm:"기본",f:1,ic:"i-metro-m"},
+            {nm:"자진 한배",sm:"빠르게",f:1.3,ic:"i-metro-f"}];
   var INSTS=[
     {k:"jg",ic:"i-janggu",nm:"장구",sm:"내가 지은 장단",fixed:true},
     {k:"kk",ic:"i-kkwaeng",nm:"꽹과리",sm:"이끄는 쇳소리"},
@@ -519,12 +556,15 @@ dialog::backdrop{background:rgba(16,13,8,.62)}
         if(o.inst.bu&&jd.bu[i]) strike(ac,out,"둥",t,se*.9);
       }
       if(o.highlight){
-        (function(idx,at){
+        (function(idx,at,syl,bt){
           timers.push(setTimeout(function(){
             document.querySelectorAll(".sobak.on").forEach(function(x){x.classList.remove("on");});
             document.querySelectorAll('#score .main .sobak[data-i="'+idx+'"]').forEach(function(x){x.classList.add("on");});
+            var g=$("gueum");
+            g.textContent=syl||"·"; g.className="gu"+(syl?"":" idle");
+            $("beatnow").innerHTML="<b>"+(bt+1)+"</b>박";
           },Math.max((at-ac.currentTime)*1000,0)));
-        })(i,t);
+        })(i,t,g,b);
       }
     }
     return n*dur;
@@ -553,9 +593,16 @@ dialog::backdrop{background:rgba(16,13,8,.62)}
       timers.push(setTimeout(function(){ if(loopOn) play("mine"); else finish(); },(m1+m2+.35)*1000));
     }
   }
+  function resetGueum(){
+    var g=$("gueum");
+    if(!g) return;
+    g.textContent="덩 · 덕 · 쿵"; g.className="gu idle";
+    $("beatnow").textContent="칠 때 여기에 구음이 떠요. 보면서 입으로 따라 해 보세요.";
+  }
   function finish(){
     playing=false;
     document.querySelectorAll(".sobak.on").forEach(function(n){n.classList.remove("on");});
+    resetGueum();
     $("now").textContent="다 쳤어요. 다시 들으려면 또 눌러요.";
   }
 
@@ -567,6 +614,7 @@ dialog::backdrop{background:rgba(16,13,8,.62)}
     }).join("");
     $("paceOpts").innerHTML=PACE.map(function(p,i){
       return '<button class="opt" data-k="pace" data-i="'+i+'" aria-pressed="'+(S.pace===i)+'">'+
+        '<svg class="ic big-ic" aria-hidden="true"><use href="#'+p.ic+'"/></svg>'+
         '<span class="big">'+p.nm+'</span><span class="sm">'+p.sm+'</span></button>';
     }).join("");
     $("insts").innerHTML=INSTS.map(function(x){
@@ -623,7 +671,29 @@ dialog::backdrop{background:rgba(16,13,8,.62)}
     $("score").innerHTML=h;
   }
   function renderCode(){ $("code").textContent=encode(S); }
-  function renderAll(){ renderOpts(); renderScore(); renderCode(); save(); }
+
+  /* 선생님이 칠판에 적어 준 조건을 화면에서도 비춰 준다. 채점이 아니라 거울이다. */
+  function conditions(){
+    var basic=JD[S.jd].basic, n=beats(), changed=0, rests=0;
+    for(var i=0;i<n;i++){
+      if(S.kol[i]!==basic[i]) changed++;
+      if(S.kol[i]===9) rests++;
+    }
+    return [
+      {t:"1박은 '덩'으로 두기", ok:S.kol[0]===0},
+      {t:"한 정간 이상 바꾸기", ok:changed>=1},
+      {t:"쉼은 한 정간까지", ok:rests<=1}
+    ];
+  }
+  function renderConds(){
+    $("conds").innerHTML=conditions().map(function(c){
+      return '<span class="cond'+(c.ok?" ok":"")+'"><svg class="ic"><use href="#'+
+             (c.ok?"i-check":"i-open")+'"/></svg>'+c.t+'</span>';
+    }).join("");
+    $("pick").innerHTML='<svg class="ic" style="width:16px;height:16px;vertical-align:-3px"><use href="#i-hand"/></svg> '+
+      '지금 고른 칸은 <b>'+(sel+1)+'번째 정간</b>이에요. 아래에서 장단꼴을 고르면 여기에 들어가요.';
+  }
+  function renderAll(){ renderOpts(); renderScore(); renderCode(); renderConds(); save(); }
 
   /* ============ 코드 ============ */
   var ALPH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -757,7 +827,7 @@ dialog::backdrop{background:rgba(16,13,8,.62)}
       renderAll(); return;
     }
     var g=e.target.closest(".gan.main");
-    if(g){ sel=+g.dataset.b; renderScore(); return; }
+    if(g){ sel=+g.dataset.b; renderScore(); renderConds(); return; }
     var c=e.target.closest(".card");
     if(c){
       push(); S.kol[sel]=+c.dataset.kol;
@@ -781,7 +851,7 @@ dialog::backdrop{background:rgba(16,13,8,.62)}
   $("play").onclick=function(){play("mine");};
   $("playBasic").onclick=function(){play("basic");};
   $("playAB").onclick=function(){play("ab");};
-  $("stop").onclick=function(){ stopAll(); $("now").textContent="멈췄어요."; };
+  $("stop").onclick=function(){ stopAll(); resetGueum(); $("now").textContent="멈췄어요."; };
   $("loop").onclick=function(){ loopOn=!loopOn; this.setAttribute("aria-pressed",loopOn); this.lastChild.textContent=loopOn?"반복 켜짐":"반복"; };
   $("fillBasic").onclick=function(){
     push(); S.kol=JD[S.jd].basic.slice(); while(S.kol.length<4) S.kol.push(0);
@@ -838,8 +908,8 @@ dialog::backdrop{background:rgba(16,13,8,.62)}
     if(e.target.tagName==="TEXTAREA"||e.target.tagName==="INPUT") return;
     if(e.code==="Space"){ e.preventDefault(); if(playing) stopAll(); else if($("viewStudent").hidden) playQuiz(); else play("mine"); }
     if($("viewStudent").hidden) return;
-    if(e.key==="ArrowRight"){ sel=(sel+1)%beats(); renderScore(); }
-    if(e.key==="ArrowLeft"){ sel=(sel-1+beats())%beats(); renderScore(); }
+    if(e.key==="ArrowRight"){ sel=(sel+1)%beats(); renderScore(); renderConds(); }
+    if(e.key==="ArrowLeft"){ sel=(sel-1+beats())%beats(); renderScore(); renderConds(); }
   });
 
   /* ============ 시작 ============ */
