@@ -134,7 +134,20 @@ button:focus-visible{outline:3px solid var(--grape);outline-offset:2px}
 .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:7px}
 .opt{background:var(--surface-2);border:2px solid var(--line);border-radius:12px;padding:9px 8px;
   color:var(--ink);text-align:center;min-height:56px;display:flex;flex-direction:column;justify-content:center;gap:1px}
+.opt{min-height:76px}
+.opt .big-ic{width:27px;height:27px;display:block;margin:0 auto 3px;stroke-width:1.7}
+.opt[aria-pressed="true"] .big-ic{stroke:#fff}
 .opt .big{font-weight:700;font-size:14.5px;line-height:1.2}
+.opt .big .sym{font:italic 700 14px Georgia,serif;color:var(--flame)}
+.opt[aria-pressed="true"] .big .sym{color:#fff}
+/* 맞히기 띠 */
+.guessbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:11px 16px 0;padding:10px 13px;
+  border:2px dashed var(--grape);border-radius:13px;background:color-mix(in srgb,var(--grape) 12%,var(--surface));font-size:14px}
+.guessbar .ic{width:21px;height:21px;color:var(--grape)}
+.guessbar b{font-weight:700}
+.guessbar .ans{color:var(--flame);font-family:var(--font-display);font-size:17px}
+.guessbar .tip{font-size:12.5px;color:var(--ink-2);flex-basis:100%}
+.guessbar button{margin-left:auto}
 .opt .sm{font-size:11.5px;color:var(--ink-2);line-height:1.2}
 .opt .sym{font:italic 700 15px Georgia,serif;color:var(--flame)}
 .opt[aria-pressed="true"]{background:var(--pot);border-color:#0a6e62;color:#fff}
@@ -234,6 +247,28 @@ dialog::backdrop{background:rgba(8,14,22,.6)}
   <symbol id="i-student" viewBox="0 0 24 24"><path d="M12 3.6 2.8 8.2 12 12.8l9.2-4.6L12 3.6Z"/><path d="M6.4 10.4v4.8c0 1.8 2.5 3.2 5.6 3.2s5.6-1.4 5.6-3.2v-4.8"/></symbol>
   <symbol id="i-teacher" viewBox="0 0 24 24"><rect x="2.8" y="3.6" width="18.4" height="12.4" rx="2"/><path d="M8.4 20.4h7.2"/><path d="M12 16v4.4"/><path d="M6.6 7.4h7"/><path d="M6.6 11.2h4.4"/></symbol>
   <symbol id="i-note" viewBox="0 0 24 24"><path d="M9.2 17.6V5.2l9-1.8v12.4"/><ellipse cx="6.6" cy="17.8" rx="2.6" ry="2.2"/><ellipse cx="15.6" cy="15.8" rx="2.6" ry="2.2"/></symbol>
+  <!-- 빠르기: 메트로놈. 추가 위에 있을수록 느리다 -->
+  <symbol id="i-metro-s" viewBox="0 0 24 24"><path d="M8.6 3.4h6.8l3.4 17.2H5.2z"/><path d="M12 5.8v12.2"/><rect x="9.6" y="6.4" width="4.8" height="2.4" rx=".7"/></symbol>
+  <symbol id="i-metro-m" viewBox="0 0 24 24"><path d="M8.6 3.4h6.8l3.4 17.2H5.2z"/><path d="M12 5.8v12.2"/><rect x="9.6" y="10.6" width="4.8" height="2.4" rx=".7"/></symbol>
+  <symbol id="i-metro-f" viewBox="0 0 24 24"><path d="M8.6 3.4h6.8l3.4 17.2H5.2z"/><path d="M12 5.8v12.2"/><rect x="9.6" y="14.8" width="4.8" height="2.4" rx=".7"/></symbol>
+  <!-- 셈여림: 스피커 + 울림 -->
+  <symbol id="i-vol1" viewBox="0 0 24 24"><path d="M4.4 9.4h3.2L12 5.6v12.8L7.6 14.6H4.4z"/></symbol>
+  <symbol id="i-vol2" viewBox="0 0 24 24"><path d="M4.4 9.4h3.2L12 5.6v12.8L7.6 14.6H4.4z"/><path d="M15.2 9.6a3.6 3.6 0 0 1 0 4.8"/></symbol>
+  <symbol id="i-vol3" viewBox="0 0 24 24"><path d="M4.4 9.4h3.2L12 5.6v12.8L7.6 14.6H4.4z"/><path d="M15.2 9.6a3.6 3.6 0 0 1 0 4.8"/><path d="M18 6.8a7.6 7.6 0 0 1 0 10.4"/></symbol>
+  <!-- 셈여림의 변화: 실제 악보의 헤어핀 -->
+  <symbol id="i-even" viewBox="0 0 24 24"><path d="M3.4 9.6h17.2"/><path d="M3.4 14.4h17.2"/></symbol>
+  <symbol id="i-hcresc" viewBox="0 0 24 24"><path d="M3.4 12 20.6 7.2"/><path d="M3.4 12 20.6 16.8"/></symbol>
+  <symbol id="i-hdim" viewBox="0 0 24 24"><path d="M20.6 12 3.4 7.2"/><path d="M20.6 12 3.4 16.8"/></symbol>
+  <!-- 이음과 끊음: 실제 악보 기호 -->
+  <symbol id="i-slur" viewBox="0 0 24 24"><ellipse cx="6.4" cy="16.6" rx="2.8" ry="2.2"/><ellipse cx="17.6" cy="16.6" rx="2.8" ry="2.2"/><path d="M4.6 11.8Q12 6.2 19.4 11.8"/></symbol>
+  <symbol id="i-plain" viewBox="0 0 24 24"><ellipse cx="6.4" cy="17" rx="2.8" ry="2.2"/><path d="M9.2 17V6.6"/><ellipse cx="17.6" cy="17" rx="2.8" ry="2.2"/><path d="M20.4 17V6.6"/></symbol>
+  <symbol id="i-stacc" viewBox="0 0 24 24"><ellipse cx="6.4" cy="17" rx="2.8" ry="2.2"/><circle cx="6.4" cy="10.8" r="1.3"/><ellipse cx="17.6" cy="17" rx="2.8" ry="2.2"/><circle cx="17.6" cy="10.8" r="1.3"/></symbol>
+  <!-- 악기 -->
+  <symbol id="i-piano" viewBox="0 0 24 24"><rect x="2.6" y="6.8" width="18.8" height="10.4" rx="1.6"/><path d="M8.9 6.8v10.4M15.1 6.8v10.4"/><path d="M6.4 6.8v5.4M11.6 6.8v5.4M17.8 6.8v5.4"/></symbol>
+  <symbol id="i-xylo" viewBox="0 0 24 24"><path d="M3.6 8h12.2"/><path d="M3.6 12h9.8"/><path d="M3.6 16h7.4"/><path d="m19.4 15.2 1.8-7"/><circle cx="19" cy="16.8" r="1.7"/></symbol>
+  <symbol id="i-organ" viewBox="0 0 24 24"><path d="M5 20V9.8a1.9 1.9 0 0 1 3.8 0V20"/><path d="M10.1 20V6.6a1.9 1.9 0 0 1 3.8 0V20"/><path d="M15.2 20v-8.4a1.9 1.9 0 0 1 3.8 0V20"/><path d="M3.4 20.4h17.2"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6.2 17.4c1.7-1.3 2.1-2.8 2.1-5.5 0-2.7 1.7-4.8 3.7-4.8s3.7 2.1 3.7 4.8c0 2.7.4 4.2 2.1 5.5z"/><path d="M12 7.1V4.8"/><circle cx="12" cy="19.6" r="1.5"/></symbol>
+  <symbol id="i-quiz" viewBox="0 0 24 24"><path d="M21 14.4a2.6 2.6 0 0 1-2.6 2.6H9.8L5.2 20.4V17a2.6 2.6 0 0 1-2.2-2.6V6a2.6 2.6 0 0 1 2.6-2.6h12.8A2.6 2.6 0 0 1 21 6z"/><path d="M9.8 8.4a2.4 2.4 0 1 1 3.2 2.3c-.6.3-.9.7-.9 1.3"/><path d="M12 14.2h.01"/></symbol>
 </defs></svg>
 
 <div class="wrap">
@@ -262,6 +297,7 @@ dialog::backdrop{background:rgba(8,14,22,.6)}
         <h2>오늘의 주문서</h2>
         <p class="hint">정답은 하나가 아니에요. 같은 주문서라도 요리사마다 다르게 만들 수 있어요.</p>
       </div>
+      <div class="guessbar" id="guessbar" hidden></div>
       <div class="moods" id="moods"></div>
     </section>
 
@@ -295,7 +331,7 @@ dialog::backdrop{background:rgba(8,14,22,.6)}
           <div class="panel-hd"><h2>양념 선반</h2><p class="hint">바꿀 때마다 악보도 같이 바뀌어요</p></div>
           <div class="grp"><h3>빠르기 <em>빠르기말</em></h3><div class="opts" id="tempoOpts"></div></div>
           <div class="grp"><h3>셈여림 <em>소리의 크기</em></h3><div class="opts" id="dynOpts"></div></div>
-          <div class="grp"><h3>셈여림의 변화 <em>나아가는 모양</em></h3><div class="opts" id="shapeOpts"></div></div>
+          <div class="grp"><h3>점점 커지기·작아지기 <em>셈여림의 변화</em></h3><div class="opts" id="shapeOpts"></div></div>
           <div class="grp"><h3>이음과 끊음 <em>아티큘레이션</em></h3><div class="opts" id="articOpts"></div></div>
           <div class="grp"><h3>악기 소리 <em>음색</em></h3><div class="opts" id="timbreOpts"></div></div>
           <div class="foot">
@@ -318,7 +354,7 @@ dialog::backdrop{background:rgba(8,14,22,.6)}
             <textarea id="reason" placeholder="예) 자장가는 천천히 재워야 해서 느리게, 작게 만들었어요."></textarea>
             <div class="tagrow" id="tags" role="group" aria-label="내 요리의 느낌 고르기"></div>
           </div>
-          <p class="note-small">코드는 이 화면 안에서만 만들어지고 어디로도 보내지 않아요. 친구 코드를 넣으면 친구가 고른 양념이 그대로 들어와요.</p>
+          <p class="note-small">친구 코드를 넣으면 <b>주문서를 가린 채</b> 친구 요리가 들어와요. 듣고 어떤 주문서였는지 맞혀 보세요. 코드는 이 화면 안에서만 만들어지고 어디로도 보내지 않아요.</p>
         </section>
       </div>
     </div>
@@ -409,11 +445,20 @@ dialog::backdrop{background:rgba(8,14,22,.6)}
      notes:[{m:64,b:1},{m:62,b:1},{m:60,b:1},{m:62,b:1},{m:64,b:1},{m:64,b:1},{m:64,b:2},
             {m:62,b:1},{m:62,b:1},{m:62,b:2},{m:64,b:1},{m:67,b:1},{m:67,b:2}]}
   ];
-  var TEMPOS=[{big:"느리게",sm:"Andante",bpm:72},{big:"보통 빠르기",sm:"Moderato",bpm:108},{big:"빠르게",sm:"Allegro",bpm:152}];
-  var DYNS  =[{big:"여리게",sym:"p",sm:"피아노",g:.11},{big:"보통",sym:"mf",sm:"메조포르테",g:.26},{big:"세게",sym:"f",sm:"포르테",g:.48}];
-  var SHAPES=[{big:"그대로",sym:"",sm:"변화 없음",k:"none"},{big:"점점 세게",sym:"cresc.",sm:"크레셴도",k:"cresc"},{big:"점점 여리게",sym:"dim.",sm:"데크레셴도",k:"dim"}];
-  var ARTICS=[{big:"이어서",sm:"레가토",gate:1.0},{big:"또박또박",sm:"논레가토",gate:.78},{big:"짧게 끊어서",sm:"스타카토",gate:.34}];
-  var TIMBRES=[{big:"피아노",sm:"또렷하고 둥근"},{big:"실로폰",sm:"짧고 통통 튀는"},{big:"오르간",sm:"길게 이어지는"},{big:"종",sm:"울리며 퍼지는"}];
+  var TEMPOS=[{big:"느리게",word:"Andante",sm:"Andante ♩=72",bpm:72,ic:"i-metro-s"},
+              {big:"보통",word:"Moderato",sm:"Moderato ♩=108",bpm:108,ic:"i-metro-m"},
+              {big:"빠르게",word:"Allegro",sm:"Allegro ♩=152",bpm:152,ic:"i-metro-f"}];
+  var DYNS  =[{big:"여리게",sym:"p",sm:"피아노",g:.11,ic:"i-vol1"},
+              {big:"보통",sym:"mf",sm:"메조포르테",g:.26,ic:"i-vol2"},
+              {big:"세게",sym:"f",sm:"포르테",g:.48,ic:"i-vol3"}];
+  var SHAPES=[{big:"그대로",sym:"",sm:"변화 없음",k:"none",ic:"i-even"},
+              {big:"점점 세게",sym:"cresc.",sm:"크레셴도",k:"cresc",ic:"i-hcresc"},
+              {big:"점점 여리게",sym:"dim.",sm:"데크레셴도",k:"dim",ic:"i-hdim"}];
+  var ARTICS=[{big:"이어서",sm:"레가토",gate:1.0,ic:"i-slur"},
+              {big:"또박또박",sm:"논레가토",gate:.78,ic:"i-plain"},
+              {big:"끊어서",sm:"스타카토",gate:.34,ic:"i-stacc"}];
+  var TIMBRES=[{big:"피아노",sm:"둥근 소리",ic:"i-piano"},{big:"실로폰",sm:"통통 튀는",ic:"i-xylo"},
+               {big:"오르간",sm:"이어지는",ic:"i-organ"},{big:"종",sm:"퍼지는",ic:"i-bell"}];
   var MOODS=[
     {ic:"i-moon", big:"졸린 자장가",  sm:"아기를 재워 주세요"},
     {ic:"i-flag", big:"신나는 운동회",sm:"달리고 싶게 만들어요"},
@@ -433,7 +478,7 @@ dialog::backdrop{background:rgba(8,14,22,.6)}
   function $(id){return document.getElementById(id);}
 
   function labelOf(dim,i){
-    if(dim==="tempo")  return TEMPOS[i].big+"("+TEMPOS[i].sm+" ♩="+TEMPOS[i].bpm+")";
+    if(dim==="tempo")  return TEMPOS[i].big+"("+TEMPOS[i].word+" ♩="+TEMPOS[i].bpm+")";
     if(dim==="dyn")    return DYNS[i].big+"("+DYNS[i].sym+")";
     if(dim==="shape")  return SHAPES[i].big+(SHAPES[i].sym?"("+SHAPES[i].sym+")":"");
     if(dim==="artic")  return ARTICS[i].big+"("+ARTICS[i].sm+")";
@@ -594,7 +639,7 @@ dialog::backdrop{background:rgba(8,14,22,.6)}
       if(acc<TOTAL_BEATS) s+='<text class="barnum" x="'+(x+5)+'" y="'+(TOP+7*ROWH+28)+'">'+(bar+1)+'마디</text>';
       acc+=4; bar++;
     }
-    s+='<text class="tempoword" x="'+LEFT+'" y="34">'+TEMPOS[S.tempo].sm+' ('+TEMPOS[S.tempo].big+') ♩='+TEMPOS[S.tempo].bpm+'</text>';
+    s+='<text class="tempoword" x="'+LEFT+'" y="34">'+TEMPOS[S.tempo].word+' ('+TEMPOS[S.tempo].big+') ♩='+TEMPOS[S.tempo].bpm+'</text>';
     s+='<text class="mark" x="'+LEFT+'" y="'+(TOP+8*ROWH+14)+'">'+DYNS[S.dyn].sym+'</text>';
     var hx1=LEFT+34, hx2=LEFT+TOTAL_BEATS*BW-8, hy=TOP+8*ROWH+9;
     if(SHAPES[S.shape].k==="cresc"){
@@ -658,18 +703,30 @@ dialog::backdrop{background:rgba(8,14,22,.6)}
   function opt(key,sel,i,html){
     return '<button class="opt" data-k="'+key+'" data-i="'+i+'" aria-pressed="'+(sel===i)+'">'+html+'</button>';
   }
+  function ico(n){ return '<svg class="ic big-ic" aria-hidden="true"><use href="#'+n+'"/></svg>'; }
   function renderOpts(){
     $("melOpts").innerHTML=MELODIES.map(function(m,i){return opt("mel",S.mel,i,'<span class="big">'+m.name+'</span><span class="sm">'+m.sub+'</span>');}).join("");
-    $("tempoOpts").innerHTML=TEMPOS.map(function(t,i){return opt("tempo",S.tempo,i,'<span class="big">'+t.big+'</span><span class="sm">'+t.sm+' ♩='+t.bpm+'</span>');}).join("");
-    $("dynOpts").innerHTML=DYNS.map(function(d,i){return opt("dyn",S.dyn,i,'<span class="sym">'+d.sym+'</span><span class="big">'+d.big+'</span><span class="sm">'+d.sm+'</span>');}).join("");
-    $("shapeOpts").innerHTML=SHAPES.map(function(x,i){return opt("shape",S.shape,i,(x.sym?'<span class="sym">'+x.sym+'</span>':'')+'<span class="big">'+x.big+'</span><span class="sm">'+x.sm+'</span>');}).join("");
-    $("articOpts").innerHTML=ARTICS.map(function(a,i){return opt("artic",S.artic,i,'<span class="big">'+a.big+'</span><span class="sm">'+a.sm+'</span>');}).join("");
-    $("timbreOpts").innerHTML=TIMBRES.map(function(t,i){return opt("timbre",S.timbre,i,'<span class="big">'+t.big+'</span><span class="sm">'+t.sm+'</span>');}).join("");
+    $("tempoOpts").innerHTML=TEMPOS.map(function(t,i){return opt("tempo",S.tempo,i,ico(t.ic)+'<span class="big">'+t.big+'</span><span class="sm">'+t.sm+'</span>');}).join("");
+    $("dynOpts").innerHTML=DYNS.map(function(d,i){return opt("dyn",S.dyn,i,ico(d.ic)+'<span class="big">'+d.big+' <i class="sym">'+d.sym+'</i></span><span class="sm">'+d.sm+'</span>');}).join("");
+    $("shapeOpts").innerHTML=SHAPES.map(function(x,i){return opt("shape",S.shape,i,ico(x.ic)+'<span class="big">'+x.big+'</span><span class="sm">'+(x.sym||x.sm)+'</span>');}).join("");
+    $("articOpts").innerHTML=ARTICS.map(function(a,i){return opt("artic",S.artic,i,ico(a.ic)+'<span class="big">'+a.big+'</span><span class="sm">'+a.sm+'</span>');}).join("");
+    $("timbreOpts").innerHTML=TIMBRES.map(function(t,i){return opt("timbre",S.timbre,i,ico(t.ic)+'<span class="big">'+t.big+'</span><span class="sm">'+t.sm+'</span>');}).join("");
     $("moods").innerHTML=MOODS.map(function(m,i){
-      return '<button class="mood" data-mood="'+i+'" aria-pressed="'+(S.mood===i)+'">'+
+      var pressed, small=m.sm;
+      if(guess){
+        pressed=(guess.picked===i);
+        if(guess.picked===null) small="눌러서 고르기";
+        else if(i===guess.answer) small="친구의 주문서";
+        else if(i===guess.picked) small="내가 고른 것";
+      }else{
+        pressed=(S.mood===i);
+        if(pressed) small="주문 받았어요";
+      }
+      return '<button class="mood" data-mood="'+i+'" aria-pressed="'+pressed+'">'+
              '<span class="badge"><svg class="ic"><use href="#'+m.ic+'"/></svg></span>'+
-             '<span class="tx">'+m.big+'<small>'+(S.mood===i?"주문 받았어요":m.sm)+'</small></span></button>';
+             '<span class="tx">'+m.big+'<small>'+small+'</small></span></button>';
     }).join("");
+    renderGuess();
     $("tags").innerHTML=TAGS.map(function(t){
       return '<button class="tag" data-tag="'+t+'" aria-pressed="'+(S.tags.indexOf(t)>=0)+'">'+t+'</button>';
     }).join("");
@@ -689,6 +746,26 @@ dialog::backdrop{background:rgba(8,14,22,.6)}
     $("melTitle").textContent=MELODIES[S.mel].name;
     $("melSub").textContent=MELODIES[S.mel].sub;
   }
+  /* 친구 코드로 불러왔을 때: 주문서를 가리고 맞혀 보게 한다 (활동 3) */
+  var guess=null;
+  function renderGuess(){
+    var el=$("guessbar");
+    if(!guess){ el.hidden=true; el.innerHTML=""; return; }
+    el.hidden=false;
+    var q='<svg class="ic"><use href="#i-quiz"/></svg>';
+    if(guess.picked===null){
+      el.innerHTML=q+'<b>친구 요리를 듣고, 어떤 주문서였는지 아래에서 골라 보세요.</b>'+
+        '<button class="btn btn-ghost" id="guessOut">그만하기</button>';
+    }else{
+      var ok=(guess.picked===guess.answer);
+      var ans=guess.answer<0?"주문서를 고르지 않았어요":MOODS[guess.answer].big;
+      el.innerHTML=q+'<b>'+(ok?"맞았어요! 친구의 주문서는 ":"친구의 주문서는 ")+
+        '<span class="ans">'+ans+'</span>'+(ok?"":" 였어요.")+'</b>'+
+        '<button class="btn btn-ghost" id="guessOut">그만하기</button>'+
+        '<span class="tip">다르게 들렸어도 괜찮아요. 어떤 양념 때문에 그렇게 들렸는지 말해 보세요.</span>';
+    }
+  }
+  function endGuess(){ guess=null; renderAll(); }
   function renderAll(){ renderOpts(); renderCard(); drawScore(); save(); }
 
   /* ===================== 선생님 화면 ===================== */
@@ -794,7 +871,7 @@ dialog::backdrop{background:rgba(8,14,22,.6)}
   function renderTerms(){
     $("terms").innerHTML=
     '<div class="term"><h4>빠르기 <em style="font:400 .78rem var(--font-body);color:var(--ink-2)">빠르기말</em></h4><dl>'+
-      TEMPOS.map(function(t){return '<div class="ln"><span class="s plain">'+t.sm+'</span><span>'+t.big+' · ♩='+t.bpm+'</span></div>';}).join("")+'</dl></div>'+
+      TEMPOS.map(function(t){return '<div class="ln"><span class="s plain">'+t.word+'</span><span>'+t.big+' · ♩='+t.bpm+'</span></div>';}).join("")+'</dl></div>'+
     '<div class="term"><h4>셈여림 <em style="font:400 .78rem var(--font-body);color:var(--ink-2)">나타냄말</em></h4><dl>'+
       DYNS.map(function(d){return '<div class="ln"><span class="s">'+d.sym+'</span><span>'+d.big+' · '+d.sm+'</span></div>';}).join("")+
       SHAPES.slice(1).map(function(x){return '<div class="ln"><span class="s">'+x.sym+'</span><span>'+x.big+' · '+x.sm+'</span></div>';}).join("")+'</dl></div>'+
@@ -820,10 +897,18 @@ dialog::backdrop{background:rgba(8,14,22,.6)}
       if(q.dataset.q==="level") qLevel=+q.dataset.i; else qMel=+q.dataset.i;
       quiz=null; $("qAnswer").hidden=true; renderQuizOpts(); return;
     }
+    if(e.target.closest("#guessOut")){ endGuess(); return; }
     var o=e.target.closest(".opt");
-    if(o&&o.dataset.k){ push(); S[o.dataset.k]=+o.dataset.i; renderAll(); return; }
+    if(o&&o.dataset.k){
+      if(guess){ guess=null; toast("양념을 바꿨으니 맞히기를 끝낼게요."); }
+      push(); S[o.dataset.k]=+o.dataset.i; renderAll(); return;
+    }
     var m=e.target.closest(".mood");
-    if(m){ push(); var i=+m.dataset.mood; S.mood=(S.mood===i?-1:i); renderAll(); return; }
+    if(m){
+      var i=+m.dataset.mood;
+      if(guess){ if(guess.picked===null){ guess.picked=i; renderAll(); } return; }
+      push(); S.mood=(S.mood===i?-1:i); renderAll(); return;
+    }
     var t=e.target.closest(".tag");
     if(t){
       push(); var v=t.dataset.tag, k=S.tags.indexOf(v);
@@ -881,8 +966,13 @@ dialog::backdrop{background:rgba(8,14,22,.6)}
   $("load").onclick=function(){
     var st=decode($("codein").value);
     if(!st){ toast("그런 코드는 없어요. 네 글자를 다시 확인해 보세요."); $("codein").focus(); return; }
-    push(); S=Object.assign(S,st); renderAll();
-    toast("친구의 양념을 가져왔어요. 들어 보세요."); play("mine");
+    push();
+    var answer=st.mood;                 // 주문서는 가려 두고 맞히게 한다
+    S=Object.assign(S,st); S.mood=-1; S.tags=[];
+    guess={answer:answer,picked:null};
+    renderAll();
+    toast("친구 요리를 가져왔어요. 듣고 주문서를 맞혀 보세요.");
+    play("mine");
   };
   $("codein").addEventListener("keydown",function(e){ if(e.key==="Enter") $("load").click(); });
   $("reason").addEventListener("input",save);
